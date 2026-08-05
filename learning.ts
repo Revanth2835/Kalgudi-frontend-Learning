@@ -372,3 +372,262 @@ A constructor is a special method that runs automatically when an object is crea
 
 You don't call it yourself.
 */
+
+
+
+
+// Learning Approach for a class
+
+/*
+class Student {
+    name : string ;
+    age : number
+
+    constructor(name:string,age:number){
+        this.name = name;
+        this.age = age
+    }
+}
+ // Professional Approach
+class Employee{
+    constructor(
+        public name:string,
+        public age :number 
+    ){
+
+    }
+}
+
+
+const s1 = new Student("Revanth",21)
+console.log(s1)
+
+const emp = new Employee("Kumar",22)
+console.log(emp)
+
+*/
+
+// ==================================== Access Modifiers ======================== 
+/*
+    Access modifiers control who can access a property or method of a class 
+
+    There are three access modifiers:
+        public (default)
+        private
+        protected
+
+                       Accessible From
+
+--------------------------------------------
+Modifier      Class   Child Class   Outside
+--------------------------------------------
+public         ✅        ✅          ✅
+private        ✅        ❌          ❌
+protected      ✅        ✅          ❌
+--------------------------------------------
+
+*/
+
+/*
+// Private 
+
+class Employee{
+    constructor( private salary:number){}
+}
+
+const em = new Employee(50000)
+console.log(em)
+console.log(em.salary)
+*/
+
+
+// Inheritance
+
+/*
+class Person{
+    name : string ="revanth";
+    age:number =21
+}
+
+class Student extends Person {
+    branch : string = "CSD"
+}
+const student = new Student()
+console.log(student)
+
+// Constructor in Inheritance (super())
+
+
+class Animal {
+    constructor(
+        public name:string
+    ){
+
+    }
+}
+
+class Dog extends Animal{
+    constructor(
+        name : string,
+        public sound: string 
+    ){
+        super(name)
+        
+    }
+    displaySound():void{
+        console.log(this.name + " is doing sound "+this.sound)
+    }
+}
+
+const a1 = new Dog("Dog","bow bow")
+a1.displaySound()
+
+*/
+
+// ============================== Interfaces ================================== 
+/*
+An Interface is a blueprint that defines the structure (shape) of an object.
+
+It tells TypeScript:
+
+    "Every object of this type must contain these properties."
+
+Unlike a class, an interface does not create objects.
+
+It only describes what an object should look like.
+
+
+    SYNTAX:
+        interface InterfaceName {
+
+            property: type;
+
+        }
+
+=================== Difference b/w Interface vs Class =========================
+| Interface                  | Class                       |
+| -------------------------- | --------------------------- |
+| Defines structure          | Creates objects             |
+| No constructor             | Can have constructors       |
+| No object creation         | Creates objects using `new` |
+| No implementation (mostly) | Contains implementation     |
+| Used for type checking     | Used for object creation    |
+
+
+*/
+
+/*
+
+interface Employee{
+    id:number;
+    name:string;
+    salary:number
+
+}
+
+const emp1:Employee = {
+    id:101,
+    name:"Revanth",
+    salary:500000
+
+}
+
+console.log(emp1.name)
+console.log(emp1.id)
+console.log(emp1.salary) 
+
+console.log(emp1)
+
+*/
+
+// ============================================ Interface Implementation ===========
+   /* 
+    An interface defines what a class must have.
+
+    The keyword implements tells a class:
+
+    "You must follow all the rules defined in this interface."
+
+*/
+
+/*
+interface Employee {
+    name : string;
+    salary :number;
+    work():void 
+    inHandsalary(actualSalary:number,deductions:number):number;
+}
+
+class Developer implements Employee{
+    
+    constructor(
+        public name:string,
+        public salary : number,
+        
+    ){}
+    work():void{
+            console.log("Writing the code")
+        }
+    inHandsalary(salary:number,deductions:number=50000):number{
+        return salary - deductions
+    }
+
+
+}
+
+const dev = new Developer("Revanth",500000)
+console.log(dev.name)
+console.log(dev.salary)
+dev.work()
+console.log(dev.inHandsalary(dev.salary))
+*/
+
+// ====================================== Interface Inheritance (extends) =========================
+/*
+One interface can inherit all the properties and methods of another interface.
+
+Instead of rewriting the same properties, you reuse them.
+
+*/
+
+/*
+interface Person {
+    name: string;
+    age: number;
+}
+
+interface Student extends Person {
+    branch: string;
+}
+
+const student: Student = {
+    name: "Revanth",
+    age: 21,
+    branch: "CSE"
+};
+
+console.log(student);
+
+// ============================ Multiple Interface Inheritance ===================
+interface PersonInfo {
+    name: string;
+}
+
+interface EmployeeInfo {
+    salary: number;
+}
+
+interface DeveloperInfo extends PersonInfo, EmployeeInfo {
+    language: string;
+}
+
+const dev: DeveloperInfo = {
+    name: "Revanth",
+    salary: 100000,
+    language: "TypeScript"
+};
+
+console.log(dev)
+
+*/
+
