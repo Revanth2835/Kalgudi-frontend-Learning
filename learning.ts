@@ -631,3 +631,479 @@ console.log(dev)
 
 */
 
+// Aug 6 
+
+// ======================================= Type Aliases (type) =====================
+
+/*
+A type alias gives another name (alias) to a type.
+
+Instead of repeatedly writing a complex type, you create a short name.
+
+Think of it like this:
+
+        Revanth Kumar Pujari
+
+        ↓
+
+        Nickname
+
+        ↓
+
+        Revanth
+
+SYNTAX:
+
+    type TypeName = {
+    property: datatype;
+    };
+
+
+
+
+=====================   Interface vs Type  ===================
+
+| Interface                    | Type                                 |
+| ---------------------------- | ------------------------------------ |
+| Uses `interface` keyword     | Uses `type` keyword                  |
+| Mainly for object shapes     | Can represent almost any type        |
+| Can use `implements`         | Cannot use `implements` directly     |
+| Can extend other interfaces  | Can combine types using `&`          |
+| Supports declaration merging | Does not support declaration merging |
+
+When should you use Interface?
+
+When defining the shape of:
+
+User
+Product
+Employee
+API Response
+
+
+When should you use Type?
+
+When creating:
+
+Union Types
+Function Types
+Primitive Aliases
+Tuple Types
+
+*/
+
+/*
+type Product = {
+    id:number;
+    name:string;
+    price:number
+}
+
+const laptop:Product ={
+    id:1,
+    name:"Laptop",
+    price:75000
+}
+
+console.log(laptop)
+
+// Type Aliases for Primitive Types 
+type UserName = string;
+let Uname: UserName = "Revanth";
+console.log(Uname);
+
+// Type Alias for Arrays
+
+type Marks = number[];
+let marks: Marks = [80, 90, 95];
+console.log(marks);
+
+// Type Alias for Functions 
+
+//Instead of repeatedly writing
+
+// (a: number, b: number) => number
+
+//Create an alias.
+
+type AddFunction = (a: number, b: number) => number;
+
+//Use it.
+
+const add: AddFunction = (a, b) => {
+    return a + b;
+};
+
+console.log(add(10, 20));
+
+*/ 
+
+
+// ========================= Union Types ===================== 
+/*
+a UNION type allows a variable , parameter or property to hold more than one type .
+
+INstead of allowing Only one type 
+ ex: let Id : number;
+
+ allows multiple types 
+
+ ex == >   let id: number | string
+
+ now Id can Store Either a NUMBER or a STRING 
+
+
+Why this Exists
+
+    Suppose your application receives an ID.
+    Sometimes it comes from a database. ==> 10(number)
+    Sometimes it comes from an API. ==> "10"
+
+    Union Types solve this.
+
+SYNTAX :
+    let variable: type1 | type2;
+
+*/
+
+
+/*
+let id : number | string;
+id =10
+console.log(typeof id)
+id="EMP10"
+console.log(typeof id )
+
+// Union Types with Functions 
+
+function printId(id: number | string): void {
+    console.log(id);
+}
+printId(101);
+printId("EMP101");
+
+// Problem with Union
+
+let value: number | string;
+value = "Revanth";
+console.log(value.toUpperCase());
+
+value = "100";
+console.log(value.toUpperCase()); //error 
+
+// error ===> Because number doesn't have toUpperCase().
+//TypeScript doesn't know which type the variable currently holds. 
+
+//Type Narrowing
+
+// First check the type
+
+let value1: number | string;
+ value1 = "Revanth";
+ if (typeof value1 === "string") {
+     console.log(value1.toUpperCase());
+}
+
+let value2: number | string;
+
+value2 = Math.random() > 0.5 ? "Revanth" : 100;
+
+if (typeof value2 === "string") {
+    console.log(value2.toUpperCase());
+}
+
+if (typeof value2 === "number") {
+    console.log(value2.toFixed(2));
+}
+
+*/ 
+
+// ======================== Literal Types ============== \
+
+
+/* 
+A Literal Type RESTRICTS a variable to SPECIFIC VALUES , not just a type 
+
+
+type Theme = "light" | "dark";
+let currentTheme: Theme;
+currentTheme = "light";
+console.log(currentTheme);
+currentTheme = "dark";
+console.log(currentTheme);
+
+
+*/
+
+/*
+type Theme = "light" | "dark";
+let currentTheme: Theme;
+currentTheme = "light";
+console.log(currentTheme);
+currentTheme = "dark";
+console.log(currentTheme);
+
+// Literal Types with Functions 
+
+type Operation = "add" | "subtract";
+
+function calculate(operation: Operation) {
+    console.log(operation);
+}
+calculate("add");
+calculate("subtract");
+
+// Literal Types with Objects 
+
+type Employee = {
+    name: string;
+    status: "Active" | "Inactive";
+
+};
+
+const emp: Employee = {
+    name: "Revanth",
+    status: "Active"
+};
+
+console.log(emp);
+
+
+*/
+
+// ===================== Optional Properties ============================= 
+
+/*
+
+optional property is a property that may or may not exist in an object.
+
+
+*/
+
+/*
+
+interface Employee2 {
+    name : string;
+    age : number;
+    exp?:number 
+}
+
+const emp2 : Employee2 ={
+    name: "Revanth",
+    age:20
+}
+console.log(emp2)
+
+// Functions also support optional properties
+
+function greeting(name:string,age?:number):void{
+    console.log(name)
+    console.log(age)
+}
+
+greeting("Revanth")
+
+// Classes also support optional properties 
+
+class Student {
+
+    constructor(
+        public name : string,
+        public age?: number
+
+    ){}
+}
+
+const s1 = new Student("Revanth")
+
+console.log(s1.name)
+
+
+*/
+
+// ======================= OPtional Chaining(?.) ===============================
+
+/*
+Optional Chaining (?.) lets you safely access a property or call a method only if the object exists.
+
+If the object is null or undefined, it returns undefined instead of throwing an error.
+*/
+
+/*
+interface Student {
+    name:string;
+    phone?:string
+}
+
+let s3:Student={
+    name:"Revanth"
+}
+
+// console.log(s3.phone?.length)
+
+
+// Optional Chaining with Methods 
+
+interface User {
+    greet?():void;
+}
+
+const user: User = {
+     greet():void {
+        console.log("Something");
+        
+    }
+};
+user.greet?.()
+*/
+
+
+// ========================  (?) ============== 
+/*
+            We use this in 3 places 
+                1.Optional Property 
+                2.Optional Method 
+                3.OPtional parameter 
+
+
+*/
+
+// ======================= Nullish Coalescing =====================
+/*
+ The Nullish Coalescing Operator (??) provides a default value when the left side is null or undefined.
+
+ SYSTAX:
+    value ?? defaultValue
+
+| Operator               | Purpose                                                        |
+| ---------------------- | -------------------------------------------------------------- |
+| `?.`                   | Safely access a property or method                             |
+| `??`                   | Provide a default value if the result is `null` or `undefined` |
+| Common Angular Pattern | `user.address?.city ?? "Unknown"`                              |
+
+
+
+
+ */
+
+
+/*
+let UserName: string | undefined 
+UserName = "Revanth Kumar"
+
+
+// if username had value it takes that value , if username does not have it takes default one 
+console.log(UserName ?? "Guest")
+
+
+//              Using ?. and ?? Together
+
+interface User {
+    address?: {
+        city?: string;
+    };
+}
+
+const user: User = {
+    address:{
+        city :"Hyderabad"
+    }
+};
+console.log(user.address?.city ?? "City Not Available");
+
+
+*/
+// =========================== Generics (<T>) =====================
+/*
+Generic lets you write one piece of code that works with many data types.
+
+Instead of writing separate functions for number, string, and boolean, you write one reusable function.
+
+Think of <T> as:
+
+"I don't know the type yet. The user will tell me later."
+
+
+
+Without Generics:
+
+function printNumber(value: number): number {
+    return value;
+}
+
+function printString(value: string): string {
+    return value;
+}
+
+function printBoolean(value: boolean): boolean {
+    return value;
+}
+
+3 functions doing the same thing.
+
+
+
+With Generics:
+
+function print<T>(value: T): T {
+    return value;
+}
+One function.
+Works for everything.
+
+
+Use Generics when you want one implementation to work for multiple data types without losing type safety.
+
+*/
+
+
+/*
+
+function printVal<T>(value:T):T{
+    return value
+}
+
+console.log(printVal(100))
+
+
+const disPlayadd=<T,U>(a:T,b:U):void=>{
+    console.log(a,b)
+}
+
+disPlayadd(20,"Revanth")
+
+
+// Generic class 
+
+class Box<T> {
+    constructor(public value: T) {}
+}
+
+const box = new Box<string>("Angular");
+
+console.log(box.value);
+
+//Generic Array
+let numbers: Array<number> = [10, 20, 30];
+
+let names: Array<string> = ["A", "B"];
+
+*/
+
+// =========================== Modules (import / export) ======================
+
+/*
+
+A module allows one file to share code with another file.
+
+Without modules:
+
+    Everything stays inside one file.
+
+With modules:
+
+    You can split your project into many files.
+
+
+*/
+
